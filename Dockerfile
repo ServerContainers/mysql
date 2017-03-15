@@ -3,8 +3,7 @@ LABEL github.user="ServerContainers"
 
 ENV MYSQL_DEFAULTS_FILE /mysql-defaults.cnf
 
-RUN export DEBIAN_FRONTEND=noninteractive \
- && apk update \
+RUN apk update \
  && apk add mysql \
             mysql-client \
  && rm -f /var/cache/apk/*
