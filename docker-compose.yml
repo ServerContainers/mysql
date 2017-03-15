@@ -1,0 +1,41 @@
+version: '3'
+
+
+services:
+  mysql:
+    image: servercontainers/mysql
+    container_name: mysql-mysql-1
+    restart: always
+    environment:
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: password
+      BACKUP_ENABLED: enable
+      DB_NAME: exampledb
+      DB_USER: exampleuser
+      DB_PASSWORD: examplepassword
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/backup:/var/mysql-backup
+    ports:
+      - 3306:3306
+    networks:
+      - mysql-test
+
+  phpmyadmin:
+    image: marvambass/phpmyadmin
+    container_name: mysql-phpmyadmin
+    restart: always
+    environment:
+      - PHPMYADMIN_MYSQL_HOST=mysql-mysql-1
+    ports:
+      - 443:443
+    networks:
+      - mysql-test
+
+
+networks:
+  mysql-test:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.109.11.0/24
