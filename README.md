@@ -39,7 +39,7 @@ In default it loads the restorable dumps from __/var/mysql-backup/to\_restore/*.
  * default: _1h_ time the backup/restore will be rerun. can have an optional suffix of (s)econds, (m)inutes, (h)ours, or (d)ays
 * __BACKUP\_PATH__
  * default: _/var/mysql-backup_ - the place to store the mysqldumps
- * __RESTORE\_DISABLE__
+* __RESTORE\_DISABLE__
  * default not set - if set to any value it disables restore functionality
 
 ### Optional DB & User auto-creation
