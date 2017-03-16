@@ -22,9 +22,9 @@ View in GitHub [ServerContainers/docker-mysql](https://github.com/ServerContaine
 The daemon stores the database data beneath: __/var/lib/mysql__
 
 * __ADMIN\_USER__
- * no default - needed only when _backup enabled_ or for _mysql initialisation_
+    * no default - needed only when _backup enabled_ or for _mysql initialisation_
 * __ADMIN\_PASSWORD__
- * no default - needed only when _backup enabled_ or for _mysql initialisation_
+    * no default - needed only when _backup enabled_ or for _mysql initialisation_
 
 ### Optional Backup & Restore
 
@@ -34,22 +34,22 @@ If you enable it the restore mechanism is automatically enabled too.
 In default it loads the restorable dumps from __/var/mysql-backup/to\_restore/*.sql__
 
 * __BACKUP\_ENABLED__
- * default not set - if set to any value it enables backup/restore functionality
+    * default not set - if set to any value it enables backup/restore functionality
 * __BACKUP\_REPETITION\_TIME__
- * default: _1h_ time the backup/restore will be rerun. can have an optional suffix of (s)econds, (m)inutes, (h)ours, or (d)ays
+    * default: _1h_ time the backup/restore will be rerun. can have an optional suffix of (s)econds, (m)inutes, (h)ours, or (d)ays
 * __BACKUP\_PATH__
- * default: _/var/mysql-backup_ - the place to store the mysqldumps
+    * default: _/var/mysql-backup_ - the place to store the mysqldumps
 * __RESTORE\_DISABLE__
- * default not set - if set to any value it disables restore functionality
+    * default not set - if set to any value it disables restore functionality
 
 ### Optional DB & User auto-creation
 
 * __DB\_NAME__
- * no default - required if you want the auto create a database with user
+    * no default - required if you want the auto create a database with user
 * __DB\_USER__
- * no default - required if you want the auto create a database with user
+    * no default - required if you want the auto create a database with user
 * __DB\_PASSWORD__
- * no default - required if you want the auto create a database with user
+    * no default - required if you want the auto create a database with user
 
 
 ## Using the servercontainers/mysql Container
