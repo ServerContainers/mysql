@@ -36,6 +36,3 @@ services:
 networks:
   mysql-test:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 192.109.11.0/24

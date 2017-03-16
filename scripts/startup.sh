@@ -26,19 +26,19 @@ init_db () {
 }
 
 enable_backups () {
-  if [ -z ${BACKUP_REPETITION_SECONDS+x} ]
+  if [ -z ${BACKUP_REPETITION_TIME+x} ]
   then
-    echo ">> no \$BACKUP_REPETITION_SECONDS set, using default value"
-    BACKUP_REPETITION_SECONDS="3600"
+    echo ">> no \$BACKUP_REPETITION_TIME set, using default value"
+    BACKUP_REPETITION_TIME="1h"
   fi
 
-  echo ">> using '$BACKUP_REPETITION_SECONDS' as \$BACKUP_REPETITION_SECONDS"
+  echo ">> using '$BACKUP_REPETITION_TIME' as \$BACKUP_REPETITION_TIME"
 
   echo ">> creating $MYSQL_DEFAULTS_FILE file"
   create_mysql_defaults_file
 
   echo ">> starting backup loop"
-  sh -c "sleep 300; while true; do mysql-backup-helper.sh; sleep $BACKUP_REPETITION_SECONDS; done" &
+  sh -c "sleep 300; while true; do mysql-backup-helper.sh; sleep $BACKUP_REPETITION_TIME; done" &
 }
 
 create_mysql_defaults_file () {
@@ -72,7 +72,7 @@ if [ ! -f "$INITALIZED" ]; then
   fi
 
   # backup stuff
-  if [ "enable" != "$BACKUP_ENABLED" ]
+  if [ -z ${BACKUP_ENABLED+x} ]
   then
     echo ">> disable auto-backups (mysqldump)"
   else

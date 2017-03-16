@@ -16,16 +16,6 @@ echo ">> using \$RESTORE_PATH: $RESTORE_PATH"
 mkdir -p "$BACKUP_PATH" &> /dev/null
 mkdir -p "$RESTORE_PATH" &> /dev/null
 
-echo ">> searching for databases to import..."
-for file in $(find "$RESTORE_PATH"/*.sql -type f); do
-  if [ -e "$file" ]; then
-    FILE_DB_NAME=$(basename "$file" | sed -e 's/\.sql$//g' -e 's/[^a-zA-Z0-9\-]//g')
-    echo -n "  >> importing $FILE_DB_NAME... "
-    mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE" "$I_DB_NAME" < "$file"
-    echo "done"
-  fi
-done
-
 DB_LIST=`echo "show databases;" | mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE" | tail -n +2 | grep -v "information_schema\|performance_schema"`
 
 echo ">> backup of every single db"
@@ -39,3 +29,23 @@ done
 
 echo ">> backup of complete sql server"
 mysqldump --defaults-extra-file="$MYSQL_DEFAULTS_FILE" --all-databases > "$BACKUP_PATH/all-databases.sql"
+
+if [ ! -z ${RESTORE_DISABLE+x} ]
+then
+  echo ">> db restore is disabled, skipping..."
+  exit 0
+fi
+
+echo ">> searching for databases to restore..."
+for file in $(find "$RESTORE_PATH"/*.sql -type f); do
+  if [ -e "$file" ]; then
+    FILE_DB_NAME=$(basename "$file" | sed -e 's/\.sql$//g' -e 's/[^a-zA-Z0-9\-]//g')
+    echo -n "  >> importing $FILE_DB_NAME... "
+    echo -n "    >> dropping old $FILE_DB_NAME... "
+    echo "DROP DATABASE $FILE_DB_NAME;" | mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE"
+    echo -n "    >> importing new $FILE_DB_NAME... "
+    mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE" "$I_DB_NAME" < "$file"
+    rm -f "$file"
+    echo "done"
+  fi
+done

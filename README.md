@@ -5,11 +5,11 @@ _maintained by ServerContainers_
 
 ## What is it
 
-This Dockerfile (available as ___servercontainers/mysql___) gives you a MySQL/MariaDB SQL-Server on alpine. It is also possible to configure a auto mysqldump and restore mechanism.
+This Dockerfile (available as ___servercontainers/mysql___) gives you a MySQL/MariaDB SQL-Server on alpine. It is also possible to configure an auto mysqldump and restore mechanism.
 
 For Configuration of the Server you use environment Variables.
 
-It's based on the [alpine:latest](https://registry.hub.docker.com/_/alpine/) Image
+It's based on the [alpine:3.5](https://registry.hub.docker.com/_/alpine/) Image
 
 View in Docker Registry [servercontainers/mysql](https://registry.hub.docker.com/u/servercontainers/mysql/)
 
@@ -26,17 +26,21 @@ The daemon stores the database data beneath: __/var/lib/mysql__
 * __ADMIN\_PASSWORD__
  * no default - needed only when _backup enabled_ or for _mysql initialisation_
 
-### Backup
+### Optional Backup & Restore
 
-This is totaly optional - backup is disabled by default!  
+Backup/Restore is disabled by default!  
 In default it stores it's dumps beneath: __/var/mysql-backup__
+If you enable it the restore mechanism is automatically enabled too.
+In default it loads the restorable dumps from __/var/mysql-backup/to\_restore/*.sql__
 
 * __BACKUP\_ENABLED__
- * default null, needs 'enable' to be enabled
-* __BACKUP\_REPETITION\_SECONDS__
- * default: _3600_ seconds which is 1 hour the mysql dump will run
+ * default not set - if set to any value it enables backup/restore functionality
+* __BACKUP\_REPETITION\_TIME__
+ * default: _1h_ time the backup/restore will be rerun. can have an optional suffix of (s)econds, (m)inutes, (h)ours, or (d)ays
 * __BACKUP\_PATH__
  * default: _/var/mysql-backup_ - the place to store the mysqldumps
+ * __RESTORE\_DISABLE__
+ * default not set - if set to any value it disables restore functionality
 
 ### Optional DB & User auto-creation
 
