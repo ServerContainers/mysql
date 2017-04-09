@@ -13,7 +13,7 @@ It's based on the [alpine:3.5](https://registry.hub.docker.com/_/alpine/) Image
 
 View in Docker Registry [servercontainers/mysql](https://registry.hub.docker.com/u/servercontainers/mysql/)
 
-View in GitHub [ServerContainers/docker-mysql](https://github.com/ServerContainers/docker-mysql)
+View in GitHub [ServerContainers/mysql](https://github.com/ServerContainers/mysql)
 
 ## Environment variables and defaults
 
