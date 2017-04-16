@@ -1,10 +1,8 @@
 version: '3'
 
-
 services:
   mysql:
     image: servercontainers/mysql
-    container_name: mysql-mysql-1
     restart: always
     environment:
       ADMIN_USER: admin
@@ -23,15 +21,13 @@ services:
 
   phpmyadmin:
     image: marvambass/phpmyadmin
-    container_name: mysql-phpmyadmin
     restart: always
     environment:
-      - PHPMYADMIN_MYSQL_HOST=mysql-mysql-1
+      - PHPMYADMIN_MYSQL_HOST=mysql
     ports:
       - 443:443
     networks:
       - mysql-test
-
 
 networks:
   mysql-test:
