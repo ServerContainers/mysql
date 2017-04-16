@@ -14,4 +14,4 @@ EXPOSE 3306
 COPY scripts /usr/local/bin/
 
 HEALTHCHECK CMD ["docker-healthcheck.sh"]
-CMD ["/usr/local/bin/startup.sh"]
+CMD ["startup.sh"]
