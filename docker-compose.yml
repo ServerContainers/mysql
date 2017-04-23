@@ -2,6 +2,7 @@ version: '3'
 
 services:
   mysql:
+    build: .
     image: servercontainers/mysql
     restart: always
     environment:
