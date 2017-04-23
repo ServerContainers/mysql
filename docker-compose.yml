@@ -24,7 +24,7 @@ services:
     image: marvambass/phpmyadmin
     restart: always
     environment:
-      - PHPMYADMIN_MYSQL_HOST=mysql
+      PHPMYADMIN_MYSQL_HOST: mysql
     ports:
       - 443:443
     networks:
