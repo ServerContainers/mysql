@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.8
 LABEL github.user="ServerContainers"
 
 ENV MYSQL_DEFAULTS_FILE /mysql-defaults.cnf
