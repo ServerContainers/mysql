@@ -11,7 +11,8 @@ exit_if_no_credentials_provided () {
 }
 
 init_db () {
-  mysql_install_db --skip-auth-anonymous-user
+  rm -rf /var/lib/mysql/*
+  mysql_install_db --datadir=/var/lib/mysql --force  --skip-name-resolve
 
   chown -R mysql:mysql /var/lib/mysql
 
