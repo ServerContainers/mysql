@@ -12,7 +12,7 @@ exit_if_no_credentials_provided () {
 
 init_db () {
   rm -rf /var/lib/mysql/*
-  mysql_install_db --datadir=/var/lib/mysql --force  --skip-name-resolve
+  mysql_install_db --datadir=/var/lib/mysql --force --skip-name-resolve --skip-test-db
 
   chown -R mysql:mysql /var/lib/mysql
 
