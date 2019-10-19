@@ -91,6 +91,10 @@ if [ ! -f "$INITALIZED" ]; then
   echo ">> bind to all"
   sed -i 's/\[mysqld\]/&\nbind-address=0.0.0.0/g' /etc/my.cnf
 
+  echo ">> disable other stuff"
+  sed -i 's/symbolic-links/#symbolic-links/g' /etc/my.cnf
+  sed -i 's/!includedir/#!includedir/g' /etc/my.cnf
+
   if [ ! -f /var/lib/mysql/ibdata1 ]; then
     echo ">> init db"
     exit_if_no_credentials_provided
