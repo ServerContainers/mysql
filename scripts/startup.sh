@@ -86,7 +86,10 @@ if [ ! -f "$INITALIZED" ]; then
 
   # mysql daemon stuff
   echo ">> disable dns resolution for mysql (speeds it up)"
-  sed -i 's/\[mysqld\]/&\nskip-host-cache\nskip-name-resolve/g' /etc/mysql/my.cnf
+  sed -i 's/\[mysqld\]/&\nskip-host-cache\nskip-name-resolve/g' /etc/my.cnf.d/mariadb-server.cnf
+  
+  echo ">> bind to all"
+  sed -i 's/#bind-address=/bind-address=/g' /etc/my.cnf.d/mariadb-server.cnf
 
   if [ ! -f /var/lib/mysql/ibdata1 ]; then
     echo ">> init db"
