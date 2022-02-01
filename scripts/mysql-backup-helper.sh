@@ -44,7 +44,7 @@ for file in $(find "$RESTORE_PATH"/*.sql -type f); do
     echo -n "    >> dropping old $FILE_DB_NAME... "
     echo "DROP DATABASE $FILE_DB_NAME;" | mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE"
     echo -n "    >> importing new $FILE_DB_NAME... "
-    mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE" "$I_DB_NAME" < "$file"
+    mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE" "$FILE_DB_NAME" < "$file"
     rm -f "$file"
     echo "done"
   fi
