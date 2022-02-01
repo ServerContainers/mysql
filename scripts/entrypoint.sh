@@ -55,7 +55,7 @@ EOF
 
 INITALIZED="/initialized"
 
-if "$@" | grep mysqld_safe 2>/dev/null >/dev/null && [ ! -f "$INITALIZED" ]; then
+if echo "$@" | grep mysqld_safe 2>/dev/null >/dev/null && [ ! -f "$INITALIZED" ]; then
   # variables stuff
   MY_IP=`ip a s eth0 | grep inet | awk '{print $2}' | sed 's/\/.*//g' | head -n1`
 
@@ -129,7 +129,7 @@ fi
 # CMD
 ##
 echo ">> CMD: exec docker CMD"
-if "$@" | grep mysqld_safe >/dev/null 2>/dev/null; then
+if echo "$@" | grep mysqld_safe >/dev/null 2>/dev/null; then
 echo ">> you can connect via mysql cli with the following command:"
 echo "   mysql -u $ADMIN_USER -p -h $MY_IP"
 fi
