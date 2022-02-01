@@ -1,7 +1,6 @@
-# Docker MySQL/MariaDB-Server Container (servercontainers/mysql)
-_maintained by ServerContainers_
+# mysql/mariadb - (servercontainers/mysql) [x86 + arm]
 
-[FAQ - All you need to know about the servercontainers Containers](https://marvin.im/docker-faq-all-you-need-to-know-about-the-marvambass-containers/)
+mysql/mariadb on alpine with backup scheduler and restore mechanism
 
 ## What is it
 
@@ -9,11 +8,25 @@ This Dockerfile (available as ___servercontainers/mysql___) gives you a MySQL/Ma
 
 For Configuration of the Server you use environment Variables.
 
-It's based on the [alpine:3.5](https://registry.hub.docker.com/_/alpine/) Image
+It's based on the [alpine](https://registry.hub.docker.com/_/alpine/) Image
 
 View in Docker Registry [servercontainers/mysql](https://registry.hub.docker.com/u/servercontainers/mysql/)
 
 View in GitHub [ServerContainers/mysql](https://github.com/ServerContainers/mysql)
+
+## Versioning and Variants
+
+You'll find all images tagged like `a3.15.0-m10.6.4-r2` which means `a<alpine version>-m<mysql/mariadb version>`.
+This way you can pin your installation/configuration to a certian version. or easily roll back if you experience any problems
+(don't forget to open a issue in that case ;D).
+
+The `latest` version will be updated/released after I managed to test a new pinned version in my production environment.
+This way I can easily find and fix bugs without affecting any users. It will result in a way more stable container.
+
+## Changelogs
+
+* 2022-01-31
+    * rewrite and update, multi-arch build, versioning
 
 ## Environment variables and defaults
 
