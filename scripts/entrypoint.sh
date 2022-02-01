@@ -19,10 +19,9 @@ init_db () {
   mysqld_safe &
   sleep 3
 
-  echo "DROP DATABASE test;" | mysql
   echo "GRANT ALL ON *.* TO $ADMIN_USER@'%' IDENTIFIED BY '$ADMIN_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql
 
-  killall mysqld
+  killall mariadbd
   sleep 3
 }
 
@@ -30,16 +29,18 @@ enable_backups () {
   if [ -z ${BACKUP_REPETITION_TIME+x} ]
   then
     echo ">> no \$BACKUP_REPETITION_TIME set, using default value"
-    BACKUP_REPETITION_TIME="1h"
+    export BACKUP_REPETITION_TIME="1h"
   fi
 
   echo ">> using '$BACKUP_REPETITION_TIME' as \$BACKUP_REPETITION_TIME"
 
   echo ">> creating $MYSQL_DEFAULTS_FILE file"
   create_mysql_defaults_file
+}
 
+start_backup_loop () {
   echo ">> starting backup loop"
-  sh -c "sleep 300; while true; do mysql-backup-helper.sh; sleep $BACKUP_REPETITION_TIME; done" &
+  sh -c "sleep 15; while true; do mysql-backup-helper.sh; sleep $BACKUP_REPETITION_TIME; done" &
 }
 
 create_mysql_defaults_file () {
@@ -124,6 +125,9 @@ if echo "$@" | grep mysqld_safe 2>/dev/null >/dev/null && [ ! -f "$INITALIZED" ]
 else
   echo ">> already initialized - direct start of mysqld"
 fi
+
+# start backup if not disabled
+[ ! -z ${BACKUP_ENABLED+x} ] && start_backup_loop
 
 ##
 # CMD
