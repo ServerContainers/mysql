@@ -43,12 +43,13 @@ echo ">> searching for databases to restore..."
 for file in $(find "$RESTORE_PATH"/*.sql -type f); do
   if [ -e "$file" ]; then
     FILE_DB_NAME=$(basename "$file" | sed -e 's/\.sql$//g' -e 's/mysql-backup_//g' -e 's/[^a-zA-Z0-9\-]//g')
-    echo -n "  >> importing $FILE_DB_NAME... "
-    echo -n "    >> dropping old $FILE_DB_NAME... "
+    echo "  >> importing $FILE_DB_NAME... "
+    echo -i "    >> dropping old $FILE_DB_NAME... "
     echo "DROP DATABASE $FILE_DB_NAME;" | mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE"
+    echo " done"
     echo "CREATE DATABASE $FILE_DB_NAME;" | mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE"
     echo -n "    >> importing new $FILE_DB_NAME... "
     mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE" "$FILE_DB_NAME" < "$file" && mv "$file" "$RESTORED_PATH/"
-    echo "done"
+    echo " done"
   fi
 done
