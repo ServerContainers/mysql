@@ -25,6 +25,8 @@ This way I can easily find and fix bugs without affecting any users. It will res
 
 ## Changelogs
 
+* 2023-01-19
+    * fixed restore code
 * 2022-01-31
     * rewrite and update, multi-arch build, versioning
 
