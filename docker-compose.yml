@@ -3,7 +3,7 @@ version: '3'
 services:
   mysql:
     build: .
-    image: servercontainers/mysql
+    image: mysql
     restart: always
     environment:
       ADMIN_USER: admin

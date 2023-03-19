@@ -1,6 +1,9 @@
 #!/bin/sh -x
 
-IMG="servercontainers/mysql"
+[ -z "$DOCKER_REGISTRY" ] && echo "error please specify docker-registry DOCKER_REGISTRY" && exit 1
+IMG="$DOCKER_REGISTRY/mysql"
+
+sed -i.bak 's/image: /image: '"$DOCKER_REGISTRY"'\//g' docker-compose.yml; rm docker-compose.yml.bak
 
 PLATFORM="linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"
 
