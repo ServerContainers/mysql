@@ -22,3 +22,5 @@ fi
 docker buildx build -q --pull --no-cache --platform "$PLATFORM" -t "$IMG:a$ALPINE_VERSION-m$MYSQL_VERSION" --push .
 
 echo "$@" | grep "release" 2>/dev/null >/dev/null && echo ">> releasing new latest" && docker buildx build -q --pull --platform "$PLATFORM" -t "$IMG:latest" --push .
+
+git checkout docker-compose.yml
