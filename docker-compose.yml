@@ -3,7 +3,7 @@ version: '3'
 services:
   mysql:
     build: .
-    image: mysql
+    image: ghcr.io/servercontainers/mysql
     restart: always
     environment:
       ADMIN_USER: admin

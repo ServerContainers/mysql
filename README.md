@@ -1,14 +1,18 @@
-# mysql/mariadb - build yourself container
+# mysql/mariadb - (ghcr.io/servercontainers/mysql) [x86 + arm]
 
 mysql/mariadb on alpine with backup scheduler and restore mechanism
 
 ## What is it
 
-This Dockerfile (available as build yourself container) gives you a MySQL/MariaDB SQL-Server on alpine. It is also possible to configure an auto mysqldump and restore mechanism.
+This Dockerfile (ghcr.io/servercontainers/mysql) gives you a MySQL/MariaDB SQL-Server on alpine. It is also possible to configure an auto mysqldump and restore mechanism.
 
 For Configuration of the Server you use environment Variables.
 
 It's based on the [alpine](https://registry.hub.docker.com/_/alpine/) Image
+
+View in GitHub Registry [ghcr.io/servercontainers/mysql](https://ghcr.io/servercontainers/mysql)
+
+View in GitHub [ServerContainers/mysql](https://github.com/ServerContainers/mysql)
 
 _currently tested on: x86_64, arm64, arm_
 
@@ -22,8 +26,7 @@ I'm not going to do that. It's more of a professionally done hobby then a
 professional job I'm earning money with.
 
 In order to avoid bad actors taking over my org. names and publishing potenial
-backdoored containers, I'd recommend to switch over clone my github repos and
-build the containers yourself.
+backdoored containers, I'd recommend to switch over to my new github registry: `ghcr.io/servercontainers`.
 
 ## Build & Variants
 
@@ -38,6 +41,9 @@ To build a `latest` tag run `./build.sh release`
 
 ## Changelogs
 
+* 2023-03-20
+    * github action to build container
+    * implemented ghcr.io as new registry
 * 2023-03-19
     * switched from docker hub to a build-yourself container
 * 2023-01-19
