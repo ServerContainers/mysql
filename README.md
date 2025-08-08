@@ -4,7 +4,7 @@ mysql/mariadb on alpine with backup scheduler and restore mechanism
 
 ## What is it
 
-This Dockerfile (ghcr.io/servercontainers/mysql) gives you a MySQL/MariaDB SQL-Server on alpine. It is also possible to configure an auto mysqldump and restore mechanism.
+This Dockerfile (ghcr.io/servercontainers/mysql) gives you a MySQL/MariaDB SQL-Server on alpine. It is also possible to configure an auto mariadb-dump and restore mechanism.
 
 For Configuration of the Server you use environment Variables.
 
@@ -74,7 +74,7 @@ In default it loads the restorable dumps from __/var/mysql-backup/to\_restore/*.
 * __BACKUP\_REPETITION\_TIME__
     * default: _1h_ time the backup/restore will be rerun. can have an optional suffix of (s)econds, (m)inutes, (h)ours, or (d)ays
 * __BACKUP\_PATH__
-    * default: _/var/mysql-backup_ - the place to store the mysqldumps
+    * default: _/var/mysql-backup_ - the place to store the mariadb-dumps
 * __RESTORE\_DISABLE__
     * default not set - if set to any value it disables restore functionality
 
@@ -130,7 +130,7 @@ For the first start you'll need to provide the __ADMIN\_USER__ and __ADMIN\_PASS
     -v /tmp/mysqlbackup:/var/mysql-backup \
     servercontainers/mysql
 
-_you need to provide the admin credentials only if you start the container for the first time (so it can initialize a new Database) or if you use the internal mysqldump backup / restore mechanism_
+_you need to provide the admin credentials only if you start the container for the first time (so it can initialize a new Database) or if you use the internal mariadb-dump backup / restore mechanism_
 
 ### Connection example
 

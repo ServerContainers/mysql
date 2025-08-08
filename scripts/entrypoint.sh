@@ -94,9 +94,9 @@ if echo "$@" | grep mysqld_safe 2>/dev/null >/dev/null && [ ! -f "$INITALIZED" ]
   # backup stuff
   if [ -z ${BACKUP_ENABLED+x} ]
   then
-    echo ">> disable auto-backups (mysqldump)"
+    echo ">> disable auto-backups (mariadb-dump)"
   else
-    echo ">> enable auto-backups (mysqldump)"
+    echo ">> enable auto-backups (mariadb-dump)"
     echo ">> backups will be stored at default path"
     echo ">> !! link or overwrite it to gain access !!"
     exit_if_no_credentials_provided

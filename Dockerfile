@@ -16,4 +16,4 @@ COPY . /container/
 HEALTHCHECK CMD ["/container/scripts/docker-healthcheck.sh"]
 ENTRYPOINT ["/container/scripts/entrypoint.sh"]
 
-CMD [ "/usr/bin/mysqld_safe" ]
+CMD [ "/usr/bin/mariadbd-safe" ]
