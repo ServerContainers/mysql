@@ -30,14 +30,14 @@ exit_if_no_credentials_provided () {
 
 init_db () {
   rm -rf /var/lib/mysql/*
-  mysql_install_db --datadir=/var/lib/mysql --force --skip-name-resolve --skip-test-db
+  mariadb-install-db --datadir=/var/lib/mysql --force --skip-name-resolve --skip-test-db
 
   chown -R mysql:mysql /var/lib/mysql
 
   /usr/bin/mariadbd-safe &
   sleep 3
 
-  echo "GRANT ALL ON *.* TO $ADMIN_USER@'%' IDENTIFIED BY '$ADMIN_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql
+  echo "GRANT ALL ON *.* TO $ADMIN_USER@'%' IDENTIFIED BY '$ADMIN_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES" | mariadb
 
   killall mariadbd
   sleep 3
@@ -135,7 +135,7 @@ if echo "$@" | grep mariadbd 2>/dev/null >/dev/null && [ ! -f "$INITALIZED" ]; t
     echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';" >> /tmp/autocreatedb.mysql
     echo "FLUSH PRIVILEGES;" >> /tmp/autocreatedb.mysql
 
-    sh -c "sleep 3; mysql -u\"$ADMIN_USER\" -p\"$ADMIN_PASSWORD\" < /tmp/autocreatedb.mysql && echo '>> db '$DB_NAME' successfully installed'; rm /tmp/autocreatedb.mysql" &
+    sh -c "sleep 3; mariadb -u\"$ADMIN_USER\" -p\"$ADMIN_PASSWORD\" < /tmp/autocreatedb.mysql && echo '>> db '$DB_NAME' successfully installed'; rm /tmp/autocreatedb.mysql" &
   fi
 
   touch "$INITALIZED"
@@ -154,8 +154,8 @@ sed -i 's;append_arg_to_args "--log-error=$err_log";;g' /usr/bin/mariadbd-safe
 
 echo ">> CMD: exec docker CMD"
 if echo "$@" | grep mariadbd >/dev/null 2>/dev/null; then
-  echo ">> you can connect via mysql cli with the following command:"
-  echo "   mysql -u $ADMIN_USER -p -h $MY_IP"
+  echo ">> you can connect via mariadb/mysql cli with the following command:"
+  echo "   mariadb -u $ADMIN_USER -p -h $MY_IP"
 fi
 
 echo "$@"
