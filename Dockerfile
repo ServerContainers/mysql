@@ -17,4 +17,4 @@ COPY . /container/
 HEALTHCHECK CMD ["/container/scripts/docker-healthcheck.sh"]
 ENTRYPOINT ["/container/scripts/entrypoint.sh"]
 
-CMD [ "mariadbd", "--console", "--skip-networking=0" ]
+CMD [ "/usr/bin/mariadbd-safe", "--console", "--skip-networking=0" ]
