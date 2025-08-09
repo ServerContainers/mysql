@@ -19,7 +19,7 @@ mkdir -p "$BACKUP_PATH" &> /dev/null
 mkdir -p "$RESTORE_PATH" &> /dev/null
 mkdir -p "$RESTORED_PATH" &> /dev/null
 
-DB_LIST=`echo "show databases;" | mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE" | tail -n +2 | grep -v "information_schema\|performance_schema"`
+DB_LIST=`echo "show databases;" | mariadb --defaults-extra-file="$MYSQL_DEFAULTS_FILE" | tail -n +2 | grep -v "information_schema\|performance_schema"`
 
 echo ">> backup of every single db"
 for DB in $DB_LIST
@@ -45,11 +45,11 @@ for file in $(find "$RESTORE_PATH"/*.sql -type f); do
     FILE_DB_NAME=$(basename "$file" | sed -e 's/\.sql$//g' -e 's/mysql-backup_//g' -e 's/[^a-zA-Z0-9\-]//g')
     echo "  >> importing $FILE_DB_NAME... "
     echo -i "    >> dropping old $FILE_DB_NAME... "
-    echo "DROP DATABASE $FILE_DB_NAME;" | mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE"
+    echo "DROP DATABASE $FILE_DB_NAME;" | mariadb --defaults-extra-file="$MYSQL_DEFAULTS_FILE"
     echo " done"
-    echo "CREATE DATABASE $FILE_DB_NAME;" | mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE"
+    echo "CREATE DATABASE $FILE_DB_NAME;" | mariadb --defaults-extra-file="$MYSQL_DEFAULTS_FILE"
     echo -n "    >> importing new $FILE_DB_NAME... "
-    mysql --defaults-extra-file="$MYSQL_DEFAULTS_FILE" "$FILE_DB_NAME" < "$file" && mv "$file" "$RESTORED_PATH/"
+    mariadb --defaults-extra-file="$MYSQL_DEFAULTS_FILE" "$FILE_DB_NAME" < "$file" && mv "$file" "$RESTORED_PATH/"
     echo " done"
   fi
 done
