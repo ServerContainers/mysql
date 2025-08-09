@@ -41,6 +41,8 @@ To build a `latest` tag run `./build.sh release`
 
 ## Changelogs
 
+* 2025-08-09
+    * some updates, moved to mariadb naming
 * 2023-03-20
     * github action to build container
     * implemented ghcr.io as new registry

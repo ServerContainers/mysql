@@ -6,6 +6,7 @@ ENV MYSQL_DEFAULTS_FILE /mysql-defaults.cnf
 
 RUN apk add --no-cache  mysql \
                         mysql-client \
+                        coreutils \
                         busybox-extras
 
 VOLUME ["/var/lib/mysql/", "/var/mysql-backup"]
