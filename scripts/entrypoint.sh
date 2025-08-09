@@ -151,8 +151,11 @@ fi
 ##
 echo ">> CMD: exec docker CMD"
 if echo "$@" | grep mariadbd >/dev/null 2>/dev/null; then
-echo ">> you can connect via mysql cli with the following command:"
-echo "   mysql -u $ADMIN_USER -p -h $MY_IP"
+  echo ">> you can connect via mysql cli with the following command:"
+  echo "   mysql -u $ADMIN_USER -p -h $MY_IP"
+  echo su -c "$@" -s /bin/sh mysql
+  exec su -c "$@" -s /bin/sh mysql
+else
+  echo "$@"
+  exec "$@"
 fi
-echo su -c "$@" -s /bin/sh mysql
-exec su -c "$@" -s /bin/sh mysql
