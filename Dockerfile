@@ -7,9 +7,7 @@ ENV MYSQL_DEFAULTS_FILE /mysql-defaults.cnf
 RUN apk add --no-cache  mysql \
                         mysql-client \
                         coreutils \
-                        busybox-extras \
-\
-&& sed -i 's/^#bind-address/bind-address/g' /etc/my.cnf.d/mariadb-server.cnf
+                        busybox-extras
 
 VOLUME ["/var/lib/mysql/", "/var/mysql-backup"]
 EXPOSE 3306

@@ -34,7 +34,7 @@ init_db () {
 
   chown -R mysql:mysql /var/lib/mysql
 
-  mysqld_safe &
+  /usr/bin/mariadbd-safe &
   sleep 3
 
   echo "GRANT ALL ON *.* TO $ADMIN_USER@'%' IDENTIFIED BY '$ADMIN_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql
@@ -71,10 +71,9 @@ EOF
 
 
 ## MAIN
-
 INITALIZED="/initialized"
 
-if echo "$@" | grep mysqld_safe 2>/dev/null >/dev/null && [ ! -f "$INITALIZED" ]; then
+if echo "$@" | grep mariadbd 2>/dev/null >/dev/null && [ ! -f "$INITALIZED" ]; then
   # variables stuff
   MY_IP=`ip a s eth0 | grep inet | awk '{print $2}' | sed 's/\/.*//g' | head -n1`
 
@@ -151,9 +150,9 @@ fi
 # CMD
 ##
 echo ">> CMD: exec docker CMD"
-if echo "$@" | grep mysqld_safe >/dev/null 2>/dev/null; then
+if echo "$@" | grep mariadbd >/dev/null 2>/dev/null; then
 echo ">> you can connect via mysql cli with the following command:"
 echo "   mysql -u $ADMIN_USER -p -h $MY_IP"
 fi
-echo "$@"
-exec "$@"
+echo su -c "$@" -s /bin/sh mysql
+exec su -c "$@" -s /bin/sh mysql
