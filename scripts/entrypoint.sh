@@ -149,8 +149,6 @@ fi
 ##
 # CMD
 ##
-echo ">> patch mariadbd-safe"
-sed -i 's;append_arg_to_args "--log-error=$err_log";;g' /usr/bin/mariadbd-safe
 
 echo ">> CMD: exec docker CMD"
 if echo "$@" | grep mariadbd >/dev/null 2>/dev/null; then
